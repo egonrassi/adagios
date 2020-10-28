@@ -40,6 +40,11 @@
                     <fieldset>
                         {% include "bootstrap_field.html" with field=form.host_name %}
                         {% include "bootstrap_field.html" with field=form.address %}
+                        {% for field in form %}
+                            {%  if field.label == "_WORKER" %}
+                                {% include "bootstrap_field.html" with field=field %}
+                            {% endif %}
+                        {% endfor %}
                         {% include "bootstrap_field.html" with field=form.alias %}
                         {% include "bootstrap_field.html" with field=form.hostgroups %}
                         {% include "bootstrap_field.html" with field=form.use %}
@@ -95,7 +100,7 @@
                         {%  endif %}
 
                         {% for field in form %}
-                            {%  if field.label|slice:":1" == "_" %}
+                            {%  if field.label|slice:":1" == "_" and field.label != "_WORKER" %}
                                 {% include "bootstrap_field.html" with field=field %}
                             {% endif %}
                         {% endfor %}
