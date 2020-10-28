@@ -369,6 +369,12 @@ class PynagForm(AdagiosForm):
             choices = [('', '')] + map(
                 lambda x: (x.command_name, x.command_name), all_objects)
             field = PynagChoiceField(choices=sorted(choices))
+        elif field_name == '_WORKER':
+            try:
+                choices = adagios.settings.WORKERS
+                field = forms.ChoiceField(choices=sorted(choices))
+            except:
+                field = forms.ChoiceField('','')
         # elif field_name == 'check_command':
         #    all_objects = Model.Command.objects.all
         #    choices = [('','')] + map(lambda x: (x.command_name, x.command_name), all_objects)
